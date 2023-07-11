@@ -14,7 +14,7 @@ docker run --rm -it -v //c/Users/sbranchett/work/yambo/data:/home/yambo maxcentr
 ```
 ...but then I don't have Quantum Espresso and I can't install it as I am a non-root user.
 
-# Tried
+# Tried...
 ```
 FROM continuumio/anaconda3
 
