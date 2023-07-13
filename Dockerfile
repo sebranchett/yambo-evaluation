@@ -4,8 +4,10 @@ ENV PATH=$PATH:"/opt/conda/bin"
 
 RUN apt update
 RUN apt install -y curl
+RUN apt install -y vim
 RUN apt install -y gpg
 RUN apt install -y quantum-espresso
+RUN apt install -y gnuplot
 
 # Conda
 # Install conda public GPG key to trusted store
@@ -20,3 +22,6 @@ RUN apt update
 RUN apt install conda
 
 RUN conda install yambo --channel conda-forge
+
+RUN mkdir -p /home/yambo
+WORKDIR /home/yambo
