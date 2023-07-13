@@ -1,7 +1,6 @@
 FROM ubuntu
 
-ENV CONDA="/opt/conda/bin/conda"
-ENV YAMBO="/opt/conda/bin/yambo"
+ENV PATH=$PATH:"/opt/conda/bin"
 
 RUN apt update
 RUN apt install -y curl
@@ -20,4 +19,4 @@ RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/conda-archive-keyring.gp
 RUN apt update
 RUN apt install conda
 
-RUN ${CONDA} install yambo --channel conda-forge
+RUN conda install yambo --channel conda-forge

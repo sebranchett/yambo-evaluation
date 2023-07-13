@@ -31,10 +31,24 @@ Useful commands:
 docker build . -t minimal-yambo
 docker run --rm -it -v //c/Users/sbranchett/work/yambo/data:/home/yambo minimal-yambo
 ```
+or, to get gnuplot working properly:
+```
+docker run --rm -it -e DISPLAY=$DISPLAY -v //c/Users/sbranchett/work/yambo/data:/home/yambo minimal-yambo
+```
 and then in the container:
 ```
 export PATH=$PATH:"/opt/conda/bin"
 cd /home/yambo
+apt install -y gnuplot
+apt install -y vim
 ```
+
+
+export DISPLAY="192.168.99.1:0"  # if running on local Windows machine, use 'ipconfig' to find the ip, and then add the ':0'.
+GUI on Windows, change Xming shortcut to run:
+"C:\Program Files (x86)\Xming\Xming.exe" :0 -clipboard -multiwindow -ac
+The "-ac" is important!
+
+apt install -y x11-apps  # has xeyes for testing
 
 Good enough for evaluation purposes.
