@@ -25,5 +25,5 @@ srun ./configure \
     --with-netcdf-path=/apps/arch/2022r2/software/linux-rhel8-skylake_avx512/gcc-8.5.0/netcdf-c-4.8.1-kz7m3osaphp3uut6i2tg5a5mdqf7q64m/ \
     --with-netcdff-path=/apps/arch/2022r2/software/linux-rhel8-skylake_avx512/gcc-8.5.0/netcdf-fortran-4.5.3-vjqc2vv2me65uouytdvu2sw4jlbqkjyi/ \
     --with-hdf5-path=/apps/arch/2022r2/software/linux-rhel8-skylake_avx512/gcc-8.5.0/hdf5-1.10.7-wscpmjfq75bppp3geu4xtecw3buxhnke/ \
-    > output.log
+    > config_output.log
 
