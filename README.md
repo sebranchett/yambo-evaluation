@@ -1,5 +1,21 @@
 # Getting Yambo and Quantum Espresso to work for evaluation purposes
 
+## DelftBlue
+
+Yambo installation instructions [here](https://www.yambo-code.eu/wiki/index.php/Installation). Version tested: 5.1.2.
+
+DelftBlue instructions [here](https://doc.dhpc.tudelft.nl/delftblue/crash-course/).
+
+See 3 scripts:
+```
+config-script.sh  # to configure installation
+make-script.sh  # to compile Yambo and supporting tools
+check-script.sh  # to check Yambo has been installed
+```
+As explained in the Yambo installation instructions, successful output includes:
+```
+Cannot access CORE database (SAVE/*db1 and/or SAVE/*wf)
+```
 ## Windows laptop with Docker
 
 ### Tried...
@@ -54,16 +70,3 @@ The "-ac" is important!
 apt install -y x11-apps 
 ```
 ...has `xeyes` for testing.
-
-## DelftBlue
-
-Yambo installation instructions [here](https://www.yambo-code.eu/wiki/index.php/Installation). Version tested: 5.1.2.
-
-DelftBlue instructions [here](https://doc.dhpc.tudelft.nl/delftblue/crash-course/).
-
-See 3 scripts:
-```
-config-script.sh  # to configure installation
-make-script.sh  # to compile Yambo and supporting tools
-check-script.sh  # to check Yambo has been installed
-```
