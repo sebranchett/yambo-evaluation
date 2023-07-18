@@ -5,6 +5,7 @@ ENV PATH=$PATH:"/opt/conda/bin"
 RUN apt update
 RUN apt install -y curl
 RUN apt install -y vim
+RUN apt install -y git
 RUN apt install -y gpg
 RUN apt install -y quantum-espresso
 RUN apt install -y gnuplot
@@ -23,5 +24,15 @@ RUN apt install conda
 
 RUN conda install yambo --channel conda-forge
 
+RUN conda install numpy scipy matplotlib netCDF4 lxml pyyaml
+
 RUN mkdir -p /home/yambo
+WORKDIR /home/yambo
+
+# Now install yambopy
+RUN git clone https://github.com/yambo-code/yambopy.git
+WORKDIR /home/yambo/yambopy
+RUN python setup.py install
+RUN pip install pymatgen
+RUN pip install abipy
 WORKDIR /home/yambo
