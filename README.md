@@ -25,7 +25,7 @@ Quantum Espresso installation instructions [here](https://www.quantum-espresso.o
 
 ### Tried...
 ```
-tar zxf yambo-5.1.2.tar.gz
+tar zxfv yambo-5.1.2.tar.gz
 rm yambo-5.1.2.tar.gz
 ```
 ... on vanilla linux, but too much work. Need to install compilers, etc.
