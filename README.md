@@ -1,10 +1,11 @@
 # Getting Yambo and Quantum Espresso to work for evaluation purposes
 
 ## DelftBlue
+DelftBlue instructions [here](https://doc.dhpc.tudelft.nl/delftblue/crash-course/).
+
+### Yambo
 
 Yambo installation instructions [here](https://www.yambo-code.eu/wiki/index.php/Installation). Version tested: 5.1.2.
-
-DelftBlue instructions [here](https://doc.dhpc.tudelft.nl/delftblue/crash-course/).
 
 See 3 scripts:
 ```
@@ -16,6 +17,10 @@ As explained in the Yambo installation instructions, successful output includes:
 ```
 Cannot access CORE database (SAVE/*db1 and/or SAVE/*wf)
 ```
+
+### Quantum Espresso
+Quantum Espresso installation instructions [here](https://www.quantum-espresso.org/Doc/user_guide/user_guide.html). Version 7.2.
+
 ## Windows laptop with Docker
 
 ### Tried...
