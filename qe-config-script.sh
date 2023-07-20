@@ -11,8 +11,12 @@
 # find your account with:
 # sacctmgr list -sp user $USER
 
-module load intel/oneapi-all
-export CPATH=$MKLROOT/include/fftw:$CPATH
+module load 2023rc1
+module load openmpi
+module load openblas
+module load hdf5
+module load fftw
+export CPATH=/apps/arch/2023rc1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/fftw-3.3.10-ltsfu6fub54vzqa64polif6jqx6e2zy5/include:$CPATH
 
 # Just to be sure, see Prerequisites
 export LC_ALL=C
@@ -21,5 +25,7 @@ WORKDIR=./q-e-qe-7.2
 cd "$WORKDIR"
 
 srun ./configure --prefix="/home/$USER/.local" \
+    --with-hdf5="yes" \
+    --with-cuda="no" \
     > qe_config_output.log
 
