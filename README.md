@@ -21,6 +21,26 @@ Cannot access CORE database (SAVE/*db1 and/or SAVE/*wf)
 ### Quantum Espresso
 Quantum Espresso installation instructions [here](https://www.quantum-espresso.org/Doc/user_guide/user_guide.html). Version 7.2.
 
+I downloaded the 7.2 zip from [here](https://gitlab.com/QEF/q-e/-/tree/qe-7.2?ref_type=tags), but it would be better to register and download.
+
+This script unzips `q-e-qe-7.2.tar.gz` as a batch job:
+```
+qe-tar-script.sh
+```
+The unzipped git repository contains sub-modules that need to be initialised. This step could possibly be avoided by registering and downloading as intended.
+```
+cd ./q-e-qe-7.2/external
+./initialize_external_repos.sh  # needs internet
+cd ../..
+```
+Then run these scripts:
+```
+qe-config-script.sh  # to configure the installation
+qe-make-script.sh  # to compile the code
+qe-test-script.sh  # to run the tests in series
+qe-test-parallel-script.sh  # to run the tests in parallel
+```
+
 ## Windows laptop with Docker
 
 ### Tried...
