@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#SBATCH --job-name=qe-config
+#SBATCH --job-name=qe-make
 #SBATCH --partition=compute
 #SBATCH --account=research-uco-ict
-#SBATCH --time=00:20:00
+#SBATCH --time=02:00:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1GB
@@ -24,7 +24,8 @@ export LC_ALL=C
 WORKDIR=./q-e-qe-7.2
 cd "$WORKDIR"
 
-srun ./configure --prefix="/home/$USER/.local" \
-    > qe_config_output.log
-#     --with-hdf5="yes" \
+# srun make clean \
+#     >  qe_make_output.log
+srun make all \
+    >  qe_make_output.log
 
