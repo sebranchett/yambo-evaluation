@@ -3,7 +3,7 @@
 #SBATCH --job-name=qe-test-parallel
 #SBATCH --partition=compute
 #SBATCH --account=research-uco-ict
-#SBATCH --time=00:59:00
+#SBATCH --time=02:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=1
