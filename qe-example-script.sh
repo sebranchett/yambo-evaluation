@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=qe-test-parallel
+#SBATCH --job-name=qe-example
 #SBATCH --partition=compute
 #SBATCH --account=research-uco-ict
 #SBATCH --time=02:30:00
