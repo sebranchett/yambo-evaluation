@@ -16,14 +16,10 @@ module load openmpi
 module load openblas
 
 module load fftw
-export CPATH=/apps/arch/2023r1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/fftw-3.3.10-ltsfu6fub54vzqa64polif6jqx6e2zy5/include:$CPATH
+module load netcdf-c  # adds path to LD_LIBRARY_PATH
+module load netcdf-fortran  # adds path to LD_LIBRARY_PATH
+module load hdf5  # adds path to LD_LIBRARY_PATH
 
-# add the netcdf library path:
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/apps/arch/2023r1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/netcdf-c-4.9.0-di5a6gyhmgbmapai34ran7zzco5jjj2j/lib
-# add the netcdff library path:
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/apps/arch/2023r1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/netcdf-fortran-4.6.0-7ets55p5c7nuask3ah6ejyuvdqq6canp/lib
-# add the hdf5 library path:
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/apps/arch/2023r1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/hdf5-1.12.2-ji6agq2hsffcd3mesaopxc2px6w5wot3/lib
 # add the BLAS/LAPACK/FTTW library path:
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/beegfs/apps/generic/intel/oneapi_2022.3/mkl/latest/lib/intel64
 
