@@ -4,8 +4,7 @@
 #SBATCH --partition=compute
 #SBATCH --account=research-uco-ict
 #SBATCH --time=00:30:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1GB
 
@@ -55,5 +54,9 @@ srun yambo -F Inputs/01_init -J 01_init &>> ${WORKDIR}/LiF-tutorial.log
 echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
 grep "Fermi Level" r-01_init_setup       >> ${WORKDIR}/LiF-tutorial.log
 grep "G-vectors" r-01_init_setup         >> ${WORKDIR}/LiF-tutorial.log
+
+# Bethe-Salpeter equation for Excitons
+echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
+srun yambo -F Inputs/06_BSE -J 06_BSE   &>> ${WORKDIR}/LiF-tutorial.log
 echo "COMPLETED"                         >> ${WORKDIR}/LiF-tutorial.log
 
