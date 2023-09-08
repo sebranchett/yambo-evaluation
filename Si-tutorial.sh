@@ -36,22 +36,25 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 WORKDIR=${PWD}/Si-tutorial
 cd "$WORKDIR"
 cd Silicon/PWSCF
+mkdir -p newoutput
 srun pw.x < input/scf.in        > newoutput/scf.out
 
 for k in gamma 1 2 4 6 8; do
   if [ $k == "gamma" ]; then
     input_label=gamma
-    label=GAMMA
+    dir_label=GAMMA
+    output_label=gamma
   else
     input_label=${k}x${k}x${k}
-    label=${k}x${k}x${k}
+    dir_label=${k}x${k}x${k}
+    output_label=k${k}
   fi
-  srun pw.x < input/nscf_${input_label}.in > newoutput/Si_e15.0_k${k}_nb50_gamma.out
+  srun pw.x < input/nscf_${input_label}.in > newoutput/Si_e15.0_${output_label}_nb50_gamma.out
   cd Si.save
   srun p2y
   cd ..
-  mkdir -p YAMBO/${label}
-  mv Si.save/SAVE YAMBO/${label}/
+  mkdir -p YAMBO/${dir_label}
+  mv Si.save/SAVE YAMBO/${dir_label}/
 done
 
 # cd "$WORKDIR"
