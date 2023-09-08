@@ -57,19 +57,16 @@ for k in gamma 1 2 4 6 8; do
   mv Si.save/SAVE YAMBO/${dir_label}/
 done
 
-# cd "$WORKDIR"
-# mv Silicon/PWSCF/Si.save/SAVE/* Silicon/YAMBO/SAVE/
-# cd Silicon/YAMBO
-# Yambo initialisation
-# rm -f r-01_init_setup  # first tidy up
-# echo "-o0o-"                             >> ${WORKDIR}/Si-tutorial.log
-# srun yambo -F Inputs/01_init -J 01_init &>> ${WORKDIR}/Si-tutorial.log
-# echo "-o0o-"                             >> ${WORKDIR}/Si-tutorial.log
-# grep "Fermi Level" r-01_init_setup       >> ${WORKDIR}/Si-tutorial.log
-# grep "G-vectors" r-01_init_setup         >> ${WORKDIR}/Si-tutorial.log
-# 
-# # Bethe-Salpeter equation for Excitons
-# echo "-o0o-"                             >> ${WORKDIR}/Si-tutorial.log
-# srun yambo -F Inputs/06_BSE -J 06_BSE   &>> ${WORKDIR}/Si-tutorial.log
-# echo "COMPLETED"                         >> ${WORKDIR}/Si-tutorial.log
+cd "$WORKDIR"/Silicon
+copy Inputs to newly created YAMBO DBs
+mv PWSCF/YAMBO/ NEW_YAMBO
+for k in GAMMA 2x2x2 4x4x4 6x6x6 8x8x8; do
+  cp -r YAMBO/${k}/Inputs NEW_YAMBO/${k}/Inputs
+done
+
+for k in GAMMA 2x2x2 4x4x4 6x6x6 8x8x8; do
+  cd "$WORKDIR"/Silicon/NEW_YAMBO/${k}
+  yambo -F Inputs/00_init -J 00_init
+  yambo -F Inputs/01HF_corrections -J HF_015Ry
+done
 
