@@ -4,7 +4,8 @@
 #SBATCH --partition=compute
 #SBATCH --account=research-uco-ict
 #SBATCH --time=00:30:00
-#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1GB
 
@@ -18,6 +19,7 @@ module load fftw
 module load netcdf-c  # adds path to LD_LIBRARY_PATH
 module load netcdf-fortran  # adds path to LD_LIBRARY_PATH
 module load hdf5  # adds path to LD_LIBRARY_PATH
+module load gnuplot
 # correct include folder for fftw
 export CPATH=/apps/arch/2023r1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/fftw-3.3.10-ltsfu6fub54vzqa64polif6jqx6e2zy5/include:$CPATH
 # add the BLAS/LAPACK/FTTW library path:
@@ -30,7 +32,7 @@ YAMBODIR=${PWD}/yambo-5.1.2
 export PATH=$PATH:$QEDIR/bin:$YAMBODIR/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 
-# Reproducint this tutorial:
+# Reproducing this tutorial:
 # https://www.yambo-code.eu/wiki/index.php/Silicon
 
 WORKDIR=${PWD}/Si-tutorial
@@ -66,7 +68,14 @@ done
 
 for k in GAMMA 2x2x2 4x4x4 6x6x6 8x8x8; do
   cd "$WORKDIR"/Silicon/NEW_YAMBO/${k}
-  yambo -F Inputs/00_init -J 00_init
-  yambo -F Inputs/01HF_corrections -J HF_015Ry
+  srun yambo -F Inputs/00_init -J 00_init
+  for Gvec_xSE in 03 06 07 15; do
+    sed -i "s|EXXRLvcs= ....|EXXRLvcs= ${Gvec_xSE}  |" Inputs/01HF_corrections
+    srun yambo -F Inputs/01HF_corrections -J HF_${Gvec_xSE}Ry
+  done
+  gnuplot "$WORKDIR"/hf_vs_cutoff.gnuplot
 done
+
+cd "$WORKDIR"/Silicon/NEW_YAMBO
+"$WORKDIR"/parse_gap.sh o-HF_15Ry.hf hf_direct_gap_vs_kpoints.dat
 
