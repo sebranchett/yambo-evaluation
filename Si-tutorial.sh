@@ -37,6 +37,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 
 WORKDIR=${PWD}/Si-tutorial
 cd "$WORKDIR"
+
+# DFT with Quantum Espresso
 cd Silicon/PWSCF
 mkdir -p newoutput
 srun pw.x < input/scf.in        > newoutput/scf.out
@@ -59,16 +61,16 @@ for k in gamma 1 2 4 6 8; do
   mv Si.save/SAVE YAMBO/${dir_label}/
 done
 
+# K-points convergence
 cd "$WORKDIR"/Silicon
-copy Inputs to newly created YAMBO DBs
 mv PWSCF/YAMBO/ NEW_YAMBO
 for k in GAMMA 2x2x2 4x4x4 6x6x6 8x8x8; do
+  # copy Inputs to newly created YAMBO DBs and initialise
   cp -r YAMBO/${k}/Inputs NEW_YAMBO/${k}/Inputs
-done
-
-for k in GAMMA 2x2x2 4x4x4 6x6x6 8x8x8; do
   cd "$WORKDIR"/Silicon/NEW_YAMBO/${k}
   srun yambo -F Inputs/00_init -J 00_init
+
+  # G-vectors convergence
   for Gvec_xSE in 03 06 07 15; do
     sed -i "s|EXXRLvcs= ....|EXXRLvcs= ${Gvec_xSE}  |" Inputs/01HF_corrections
     srun yambo -F Inputs/01HF_corrections -J HF_${Gvec_xSE}Ry
@@ -78,4 +80,5 @@ done
 
 cd "$WORKDIR"/Silicon/NEW_YAMBO
 "$WORKDIR"/parse_gap.sh o-HF_15Ry.hf hf_direct_gap_vs_kpoints.dat
+gnuplot "$WORKDIR"/k_point_convergence.gnuplot
 

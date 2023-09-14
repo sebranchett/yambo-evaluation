@@ -5,4 +5,4 @@ set xrange [0:600]
 set yrange [7.5:13]
 set xlabel "Number of K-points in the BZ"
 set ylabel "Direct HF gap [eV]"
-plot 'hf_direct_gap_vs_kpoints.dat' using 1:2 w p
+plot 'hf_direct_gap_vs_kpoints.dat' w lp
