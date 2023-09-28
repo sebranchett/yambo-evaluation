@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=qe-make
+#SBATCH --job-name=qe-untar
 #SBATCH --partition=compute
 #SBATCH --account=research-uco-ict
 #SBATCH --time=00:20:00
