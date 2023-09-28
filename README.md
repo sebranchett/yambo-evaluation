@@ -29,7 +29,11 @@ qe-example-script.sh  # to run the examples
 ### Yambo
 Yambo installation instructions [here](https://www.yambo-code.eu/wiki/index.php/Installation). Version tested: 5.1.2.
 
-See 3 scripts:
+Extract Yambo:
+```
+tar zxfv yambo-5.1.2.tar.gz
+```
+Run 3 scripts:
 ```
 config-script.sh  # to configure installation
 make-script.sh  # to compile Yambo and supporting tools
