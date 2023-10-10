@@ -4,7 +4,8 @@
 #SBATCH --partition=compute
 #SBATCH --account=research-uco-ict
 #SBATCH --time=00:20:00
-#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1GB
 
@@ -24,5 +25,6 @@ WORKDIR=./q-e-qe-7.2
 cd "$WORKDIR"
 
 srun ./configure \
+    LIBDIRS="$FFTW_ROOT/lib $OPENBLAS_ROOT/lib $OPENMPI_ROOT/lib" \
     > qe_config_output.log
 

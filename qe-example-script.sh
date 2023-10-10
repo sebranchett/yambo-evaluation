@@ -25,8 +25,12 @@ export LC_ALL=C
 # https://www.quantum-espresso.org/Doc/user_guide/node15.html
 WORKDIR=./q-e-qe-7.2/PW/examples
 cd "$WORKDIR"
-export PARA_PREFIX="srun"
-export PARA_POSTFIX=""
+
+# if you want to run in parallel, change these two parameters:
+# PARA_PREFIX="srun"
+# PARA_POSTFIX=""
+# in:
+# ./q-e-qe-7.2/environment_variables
 
 ./run_all_examples
 

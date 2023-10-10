@@ -25,6 +25,12 @@ qe-make-script.sh  # to compile the code
 qe-test-script.sh  # to run the tests
 qe-example-script.sh  # to run the examples
 ```
+> [!NOTE]
+> If you want to run the examples in parallel, you need to edit the file: `q-e-qe-7.2/environment_variables` and change the lines defining `PARA_PREFIX` and `PARA_POSTFIX`:
+>
+> `PARA_PREFIX="srun"`
+>
+> `PARA_POSTFIX=""`
 
 ### Yambo
 Yambo installation instructions [here](https://www.yambo-code.eu/wiki/index.php/Installation). Version tested: 5.1.2.
