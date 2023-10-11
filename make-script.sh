@@ -3,8 +3,9 @@
 #SBATCH --job-name=yambo-make
 #SBATCH --partition=compute
 #SBATCH --account=research-uco-ict
-#SBATCH --time=01:59:00
-#SBATCH --ntasks=1
+#SBATCH --time=09:59:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1GB
 
@@ -14,9 +15,11 @@
 module load 2023r1
 module load openmpi
 module load openblas
-
 module load fftw
-export CPATH=/apps/arch/2023r1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/fftw-3.3.10-ltsfu6fub54vzqa64polif6jqx6e2zy5/include:$CPATH
+export CPATH=$FFTW_ROOT/include:$CPATH
+module load hdf5
+module load netcdf-c
+module load netcdf-fortran
 
 WORKDIR=./yambo-5.1.2
 cd "$WORKDIR"
