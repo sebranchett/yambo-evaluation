@@ -16,15 +16,12 @@ module load 2023r1
 module load openmpi
 module load openblas
 module load fftw
-module load netcdf-c  # adds path to LD_LIBRARY_PATH
-module load netcdf-fortran  # adds path to LD_LIBRARY_PATH
-module load hdf5  # adds path to LD_LIBRARY_PATH
+export CPATH=$FFTW_ROOT/include:$CPATH
+module load hdf5
+module load netcdf-c
+module load netcdf-fortran
 module load gnuplot
-# correct include folder for fftw
-export CPATH=/apps/arch/2023r1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/fftw-3.3.10-ltsfu6fub54vzqa64polif6jqx6e2zy5/include:$CPATH
-# add the BLAS/LAPACK/FTTW library path:
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/beegfs/apps/generic/intel/oneapi_2022.3/mkl/latest/lib/intel64
-# Just to be sure, see QE Prerequisites
+# see QE Prerequisites
 export LC_ALL=C
 
 QEDIR=${PWD}/q-e-qe-7.2
@@ -66,6 +63,7 @@ cd "$WORKDIR"/Silicon
 mv PWSCF/YAMBO/ NEW_YAMBO
 for k in GAMMA 2x2x2 4x4x4 6x6x6 8x8x8; do
   # copy Inputs to newly created YAMBO DBs and initialise
+  cd "$WORKDIR"/Silicon
   cp -r YAMBO/${k}/Inputs NEW_YAMBO/${k}/Inputs
   cd "$WORKDIR"/Silicon/NEW_YAMBO/${k}
   srun yambo -F Inputs/00_init -J 00_init
