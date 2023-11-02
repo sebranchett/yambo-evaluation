@@ -15,14 +15,11 @@ module load 2023r1
 module load openmpi
 module load openblas
 module load fftw
+export CPATH=$FFTW_ROOT/include:$CPATH
+module load hdf5  # adds path to LD_LIBRARY_PATH
 module load netcdf-c  # adds path to LD_LIBRARY_PATH
 module load netcdf-fortran  # adds path to LD_LIBRARY_PATH
-module load hdf5  # adds path to LD_LIBRARY_PATH
-# correct include folder for fftw
-export CPATH=/apps/arch/2023r1/software/linux-rhel8-skylake_avx512/gcc-8.5.0/fftw-3.3.10-ltsfu6fub54vzqa64polif6jqx6e2zy5/include:$CPATH
-# add the BLAS/LAPACK/FTTW library path:
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/beegfs/apps/generic/intel/oneapi_2022.3/mkl/latest/lib/intel64
-# Just to be sure, see QE Prerequisites
+# See QE Prerequisites
 export LC_ALL=C
 
 QEDIR=${PWD}/q-e-qe-7.2
@@ -45,6 +42,7 @@ srun p2y         &>> ${WORKDIR}/LiF-tutorial.log
 echo "-o0o-"      >> ${WORKDIR}/LiF-tutorial.log
 ls SAVE           >> ${WORKDIR}/LiF-tutorial.log
 cd "$WORKDIR"
+mkdir -p LiF/Optics/YAMBO/SAVE
 mv LiF/PWSCF/LiF.save/SAVE/* LiF/Optics/YAMBO/SAVE/
 cd LiF/Optics/YAMBO
 # Yambo initialisation
