@@ -6,3 +6,4 @@ yambo-*.*.*/
 *qe-*.*/
 LiF-tutorial/
 Si-tutorial/Silicon/
+*.log
