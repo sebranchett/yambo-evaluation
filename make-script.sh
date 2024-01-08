@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=yambo-make
 #SBATCH --partition=compute
-#SBATCH --account=research-uco-ict
-#SBATCH --time=09:59:00
+#SBATCH --account=innovation
+#SBATCH --time=02:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -21,7 +21,7 @@ module load hdf5
 module load netcdf-c
 module load netcdf-fortran
 
-WORKDIR=./yambo-5.1.2
+WORKDIR=./yambo-5.2.0
 cd "$WORKDIR"
 
 srun make clean > make_output.log

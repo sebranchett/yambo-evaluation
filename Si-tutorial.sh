@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=Si-tutorial
 #SBATCH --partition=compute
-#SBATCH --account=research-uco-ict
+#SBATCH --account=innovation
 #SBATCH --time=00:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4
@@ -24,8 +24,8 @@ module load gnuplot
 # see QE Prerequisites
 export LC_ALL=C
 
-QEDIR=${PWD}/q-e-qe-7.2
-YAMBODIR=${PWD}/yambo-5.1.2
+QEDIR=/scratch/sbranchett/yambo-evaluation/q-e-qe-7.2
+YAMBODIR=${PWD}/yambo-5.2.0
 export PATH=$PATH:$QEDIR/bin:$YAMBODIR/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 
