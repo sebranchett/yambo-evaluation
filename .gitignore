@@ -3,7 +3,7 @@ data/
 .vscode/
 yambo-*.*.*/
 *.out
-*qe-*.*/
+q-e-qe-*.*/
 LiF-tutorial/
 Si-tutorial/Silicon/
 *.log
