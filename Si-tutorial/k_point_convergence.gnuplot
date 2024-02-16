@@ -1,5 +1,5 @@
 set terminal png size 500,500
-set output 'k_point_convergence.png'
+set output '02_k_point_convergence.png'
 set title 'k-point convergence'
 set xrange [0:600]
 set yrange [7.5:13]

@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=Si-tutorial
 #SBATCH --partition=compute
-#SBATCH --account=research-uco-ict
-#SBATCH --time=00:30:00
+#SBATCH --account=innovation
+#SBATCH --time=02:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=1
@@ -21,7 +21,7 @@ module load hdf5
 module load netcdf-c
 module load netcdf-fortran
 module load gnuplot
-# see QE Prerequisites
+# See QE Prerequisites
 export LC_ALL=C
 
 QEDIR=${PWD}/q-e-qe-7.2
@@ -34,6 +34,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 
 WORKDIR=${PWD}/Si-tutorial
 cd "$WORKDIR"
+mkdir -p Silicon/plots
 
 # DFT with Quantum Espresso
 cd Silicon/PWSCF
@@ -58,6 +59,7 @@ for k in gamma 1 2 4 6 8; do
   mv Si.save/SAVE YAMBO/${dir_label}/
 done
 
+# Hartree-Fock
 # K-points convergence
 cd "$WORKDIR"/Silicon
 mv PWSCF/YAMBO/ NEW_YAMBO
@@ -75,8 +77,81 @@ for k in GAMMA 2x2x2 4x4x4 6x6x6 8x8x8; do
   done
   gnuplot "$WORKDIR"/hf_vs_cutoff.gnuplot
 done
+mv "$WORKDIR"/Silicon/NEW_YAMBO/4x4x4/*.png "$WORKDIR"/Silicon/plots/
 
 cd "$WORKDIR"/Silicon/NEW_YAMBO
 "$WORKDIR"/parse_gap.sh o-HF_15Ry.hf hf_direct_gap_vs_kpoints.dat
 gnuplot "$WORKDIR"/k_point_convergence.gnuplot
+mv *.png "$WORKDIR"/Silicon/plots/
+
+# K-points convergence
+for k in GAMMA 2x2x2 4x4x4 6x6x6 8x8x8; do
+  cd "$WORKDIR"/Silicon/NEW_YAMBO/${k}
+  srun yambo -F Inputs/02Cohsex -J Cohsex_HF7Ry_X0Ry-nb10
+done
+
+cd "$WORKDIR"/Silicon/NEW_YAMBO
+"$WORKDIR"/parse_gap.sh o-Cohsex_HF7Ry_X0Ry-nb10.qp cohsex_direct_gap_vs_kpoints.dat
+gnuplot "$WORKDIR"/cohsex_k_point_convergence.gnuplot
+mv *.png "$WORKDIR"/Silicon/plots/
+
+# COHSEX
+# K-points convergence
+for k in 4x4x4; do
+  cd "$WORKDIR"/Silicon/NEW_YAMBO/${k}
+  srun yambo -F Inputs/02Cohsex -J Cohsex_HF7Ry_X0Ry-nb10
+done
+
+cd "$WORKDIR"/Silicon/NEW_YAMBO
+"$WORKDIR"/parse_gap.sh o-Cohsex_HF7Ry_X0Ry-nb10.qp cohsex_direct_gap_vs_kpoints.dat
+gnuplot "$WORKDIR"/cohsex_k_point_convergence.gnuplot
+mv *.png "$WORKDIR"/Silicon/plots/
+
+# W size convergence
+# NGsBlkXs starts off as 1 RL
+cd "$WORKDIR"/Silicon/NEW_YAMBO/4x4x4
+grep "  5 " o-Cohsex_HF7Ry_X0Ry-nb10.qp | grep " 2.576" | awk '{print "00 " $3+$4 }' > cohsex_w_convergence.dat
+for NGsBlkXs in 03 06 07; do
+  sed -i "s|NGsBlkXs= 1            RL|NGsBlkXs= ${NGsBlkXs}             Ry|" Inputs/02Cohsex
+  srun yambo -F Inputs/02Cohsex -J Cohsex_W_${NGsBlkXs}Ry
+  grep "  5 " o-Cohsex_W_${NGsBlkXs}Ry.qp | grep " 2.576" | awk -v NGsBlkXs="$NGsBlkXs" '{print NGsBlkXs " " $3+$4 }' >> cohsex_w_convergence.dat
+done
+# set back to 1 RL
+sed -i "s|NGsBlkXs= ..             Ry|NGsBlkXs= 1            RL|" Inputs/02Cohsex
+gnuplot "$WORKDIR"/cohsex_w_convergence.gnuplot
+mv *.png "$WORKDIR"/Silicon/plots/
+
+# W bands convergence
+# BndsRnXs starts off as 1 - 10
+cd "$WORKDIR"/Silicon/NEW_YAMBO/4x4x4
+sed -i "s|NGsBlkXs= 1            RL|NGsBlkXs= 1            Ry|" Inputs/02Cohsex
+rm -f cohsex_w_bands_convergence.dat
+for BndsRnXs in 20 30 40 50; do
+  sed -i "22s|  1 . .0|  1 \| ${BndsRnXs}|" Inputs/02Cohsex
+  srun yambo -F Inputs/02Cohsex -J Cohsex_W_${BndsRnXs}_bands
+  grep "  5 " o-Cohsex_W_${BndsRnXs}_bands.qp | grep " 2.576" | awk -v BndsRnXs="$BndsRnXs" '{print BndsRnXs " " $3+$4 }' >> cohsex_w_bands_convergence.dat
+done
+# set back to 1 - 10
+sed -i "22s|  1 . .0|  1 \| 10|" Inputs/02Cohsex
+sed -i "s|NGsBlkXs= 1            Ry|NGsBlkXs= 1            RL|" Inputs/02Cohsex
+
+gnuplot "$WORKDIR"/cohsex_w_bands_convergence.gnuplot
+mv *.png "$WORKDIR"/Silicon/plots/
+
+# Empty bands convergence
+# GbndRnge starts off as 1 - 10
+cd "$WORKDIR"/Silicon/NEW_YAMBO/4x4x4
+sed -i "s|NGsBlkXs= 1            RL|NGsBlkXs= 1            Ry|" Inputs/02Cohsex
+rm -f cohsex_empty_bands_convergence.dat
+for GbndRnge in 10 20 30 40 50; do
+  sed -i "29s|  1 . .0|  1 \| ${GbndRnge}|" Inputs/02Cohsex
+  srun yambo -F Inputs/02Cohsex -J Cohsex_empty_${GbndRnge}_bands
+  grep "  5 " o-Cohsex_empty_${GbndRnge}_bands.qp | grep " 2.576" | awk -v GbndRnge="$GbndRnge" '{print GbndRnge " " $3+$4 }' >> cohsex_empty_bands_convergence.dat
+done
+# set back to 1 - 10
+sed -i "29s|  1 . .0|  1 \| 10|" Inputs/02Cohsex
+sed -i "s|NGsBlkXs= 1            Ry|NGsBlkXs= 1            RL|" Inputs/02Cohsex
+
+gnuplot "$WORKDIR"/cohsex_empty_bands_convergence.gnuplot
+mv *.png "$WORKDIR"/Silicon/plots/
 

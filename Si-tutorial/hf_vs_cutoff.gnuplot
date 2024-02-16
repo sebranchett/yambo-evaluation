@@ -1,5 +1,5 @@
 set terminal png size 500,500
-set output 'G-vectors-convergence.png'
+set output '01_G-vectors-convergence.png'
 set title 'G-vectors convergence'
 set xrange [-2:8]
 set yrange [-6:10]
