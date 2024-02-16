@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=yambo-config
 #SBATCH --partition=compute
-#SBATCH --account=research-uco-ict
+#SBATCH --account=innovation
 #SBATCH --time=00:10:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -21,7 +21,7 @@ module load hdf5
 module load netcdf-c
 module load netcdf-fortran
 
-WORKDIR=./yambo-5.1.2
+WORKDIR=./yambo-5.2.0
 cd "$WORKDIR"
 
 srun ./configure \
