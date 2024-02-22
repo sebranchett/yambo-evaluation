@@ -104,9 +104,9 @@ for NGsBlkXs in 03 06 07; do
   sed -i "s|NGsBlkXs= 1            RL|NGsBlkXs= ${NGsBlkXs}             Ry|" Inputs/02Cohsex
   srun yambo -F Inputs/02Cohsex -J Cohsex_W_${NGsBlkXs}Ry
   grep "  5 " o-Cohsex_W_${NGsBlkXs}Ry.qp | grep " 2.576" | awk -v NGsBlkXs="$NGsBlkXs" '{print NGsBlkXs " " $3+$4 }' >> cohsex_w_convergence.dat
-done
 # set back to 1 RL
-sed -i "s|NGsBlkXs= ..             Ry|NGsBlkXs= 1            RL|" Inputs/02Cohsex
+  sed -i "s|NGsBlkXs= ..             Ry|NGsBlkXs= 1            RL|" Inputs/02Cohsex
+done
 gnuplot "$WORKDIR"/cohsex_w_convergence.gnuplot
 mv *.png "$WORKDIR"/Silicon/plots/
 
@@ -116,12 +116,12 @@ cd "$WORKDIR"/Silicon/NEW_YAMBO/4x4x4
 sed -i "s|NGsBlkXs= 1            RL|NGsBlkXs= 1            Ry|" Inputs/02Cohsex
 rm -f cohsex_w_bands_convergence.dat
 for BndsRnXs in 20 30 40 50; do
-  sed -i "22s|  1 . .0|  1 \| ${BndsRnXs}|" Inputs/02Cohsex
+  sed -i "/BndsRnXs/{n;s|  1 . .0|  1 \| ${BndsRnXs}|}" Inputs/02Cohsex
   srun yambo -F Inputs/02Cohsex -J Cohsex_W_${BndsRnXs}_bands
   grep "  5 " o-Cohsex_W_${BndsRnXs}_bands.qp | grep " 2.576" | awk -v BndsRnXs="$BndsRnXs" '{print BndsRnXs " " $3+$4 }' >> cohsex_w_bands_convergence.dat
-done
 # set back to 1 - 10
-sed -i "22s|  1 . .0|  1 \| 10|" Inputs/02Cohsex
+  sed -i "/BndsRnXs/{n;s|  1 . .0|  1 \| 10|}" Inputs/02Cohsex
+done
 sed -i "s|NGsBlkXs= 1            Ry|NGsBlkXs= 1            RL|" Inputs/02Cohsex
 
 gnuplot "$WORKDIR"/cohsex_w_bands_convergence.gnuplot
@@ -134,12 +134,12 @@ sed -i "s|NGsBlkXs= 1            RL|NGsBlkXs= 1            Ry|" Inputs/02Cohsex
 sed -i "s|#UseEbands|UseEbands|" Inputs/02Cohsex
 rm -f cohsex_empty_bands_convergence.dat
 for GbndRnge in 10 20 30 40 50; do
-  sed -i "29s|  1 . .0|  1 \| ${GbndRnge}|" Inputs/02Cohsex
+  sed -i "/GbndRnge/{n;s|  1 . .0|  1 \| ${GbndRnge}|}" Inputs/02Cohsex
   srun yambo -F Inputs/02Cohsex -J Cohsex_empty_${GbndRnge}_bands
   grep "  5 " o-Cohsex_empty_${GbndRnge}_bands.qp | grep " 2.576" | awk -v GbndRnge="$GbndRnge" '{print GbndRnge " " $3+$4 }' >> cohsex_empty_bands_convergence.dat
+  sed -i "/GbndRnge/{n;s|  1 . .0|  1 \| 10|}" Inputs/02Cohsex
 done
 # set back to 1 - 10
-sed -i "29s|  1 . .0|  1 \| 10|" Inputs/02Cohsex
 sed -i "s|NGsBlkXs= 1            Ry|NGsBlkXs= 1            RL|" Inputs/02Cohsex
 sed -i "s|UseEbands|#UseEbands|" Inputs/02Cohsex
 
