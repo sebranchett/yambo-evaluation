@@ -171,8 +171,8 @@ for NGsBlkXp in 01 03 06 07; do
   rm -f o-G0W0_W_${NGsBlkXp}Ry.qp
   srun yambo -F Inputs/03GoWo_PPA_corrections -J G0W0_W_${NGsBlkXp}Ry
   grep "  5 " o-G0W0_W_${NGsBlkXp}Ry.qp | grep " 2.576" | awk -v NGsBlkXp="$NGsBlkXp" '{print NGsBlkXp " " $3+$4 }' >> G0W0_w_convergence.dat
+  sed -i "s|NGsBlkXp= ..             Ry|NGsBlkXp= 1            RL|" Inputs/03GoWo_PPA_corrections
 done
-sed -i "s|NGsBlkXp= ..             Ry|NGsBlkXp= 1            RL|" Inputs/03GoWo_PPA_corrections
 gnuplot "$WORKDIR"/G0W0_w_convergence.gnuplot
 mv *.png "$WORKDIR"/Silicon/plots/
 
@@ -182,13 +182,13 @@ cd "$WORKDIR"/Silicon/NEW_YAMBO/4x4x4
 sed -i "s|NGsBlkXp= 1            RL|NGsBlkXp= 1            Ry|" Inputs/03GoWo_PPA_corrections
 rm -f G0W0_w_bands_convergence.dat
 for BndsRnXp in 10 20 30 40 50; do
-  sed -i "24s|  1 . .0|  1 \| ${BndsRnXp}|" Inputs/03GoWo_PPA_corrections
+  sed -i "/BndsRnXp/{n;s|  1 . .0|  1 \| ${BndsRnXp}|}" Inputs/03GoWo_PPA_corrections
   rm -f o-G0W0_W_${BndsRnXp}_bands.qp
   srun yambo -F Inputs/03GoWo_PPA_corrections -J G0W0_W_${BndsRnXp}_bands
   grep "  5 " o-G0W0_W_${BndsRnXp}_bands.qp | grep " 2.576" | awk -v BndsRnXp="$BndsRnXp" '{print BndsRnXp " " $3+$4 }' >> G0W0_w_bands_convergence.dat
+  sed -i "/BndsRnXp/{n;s|  1 . ${BndsRnXp}|  1 \| 10|}" Inputs/03GoWo_PPA_corrections
 done
 # set back to 1 - 10
-sed -i "24s|  1 . .0|  1 \| 10|" Inputs/03GoWo_PPA_corrections
 sed -i "s|NGsBlkXp= 1            Ry|NGsBlkXp= 1            RL|" Inputs/03GoWo_PPA_corrections
 
 gnuplot "$WORKDIR"/G0W0_w_bands_convergence.gnuplot
@@ -201,13 +201,13 @@ sed -i "s|NGsBlkXp= 1            RL|NGsBlkXp= 1            Ry|" Inputs/03GoWo_PP
 sed -i "s|#UseEbands|UseEbands|" Inputs/03GoWo_PPA_corrections
 rm -f G0W0_empty_bands_convergence.dat
 for GbndRnge in 10 20 30 40 50; do
-  sed -i "33s|  1 . ..|  1 \| ${GbndRnge}|" Inputs/03GoWo_PPA_corrections
+  sed -i "/GbndRnge/{n;s|  1 . .0|  1 \| ${GbndRnge}|}" Inputs/03GoWo_PPA_corrections
   rm -f o-G0W0_empty_${GbndRnge}_bands.qp
   srun yambo -F Inputs/03GoWo_PPA_corrections -J G0W0_empty_${GbndRnge}_bands
   grep "  5 " o-G0W0_empty_${GbndRnge}_bands.qp | grep " 2.576" | awk -v GbndRnge="$GbndRnge" '{print GbndRnge " " $3+$4 }' >> G0W0_empty_bands_convergence.dat
+  sed -i "/GbndRnge/{n;s|  1 . .0|  1 \| 10|}" Inputs/03GoWo_PPA_corrections
 done
 # set back to 1 - 10
-sed -i "33s|  1 . ..|  1 \| 10|" Inputs/03GoWo_PPA_corrections
 sed -i "s|NGsBlkXp= 1            Ry|NGsBlkXp= 1            RL|" Inputs/03GoWo_PPA_corrections
 sed -i "s|UseEbands|#UseEbands|" Inputs/03GoWo_PPA_corrections
 
