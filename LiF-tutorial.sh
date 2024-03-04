@@ -4,7 +4,7 @@
 #SBATCH --partition=compute
 #SBATCH --account=innovation
 #SBATCH --time=00:30:00
-#SBATCH --ntasks=1
+#SBATCH --ntasks=4
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1GB
 
@@ -23,7 +23,7 @@ module load netcdf-fortran  # adds path to LD_LIBRARY_PATH
 export LC_ALL=C
 
 QEDIR=/scratch/sbranchett/yambo-evaluation/q-e-qe-7.2
-YAMBODIR=${PWD}/yambo-5.2.0
+YAMBODIR=/scratch/sbranchett/parallel-yambo/yambo-5.2.0
 export PATH=$PATH:$QEDIR/bin:$YAMBODIR/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 
@@ -44,7 +44,7 @@ ls SAVE           >> ${WORKDIR}/LiF-tutorial.log
 cd "$WORKDIR"
 mkdir -p LiF/Optics/YAMBO/SAVE
 mv LiF/PWSCF/LiF.save/SAVE/* LiF/Optics/YAMBO/SAVE/
-cd LiF/Optics/YAMBO
+cd "$WORKDIR"/LiF/Optics/YAMBO
 # Yambo initialisation
 rm -f r-01_init_setup  # first tidy up
 echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
@@ -53,8 +53,32 @@ echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
 grep "Fermi Level" r-01_init_setup       >> ${WORKDIR}/LiF-tutorial.log
 grep "G-vectors" r-01_init_setup         >> ${WORKDIR}/LiF-tutorial.log
 
+# Random-Phase approximation
+echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
+srun yambo -F Inputs/02_RPA_no_LF -J 02_RPA_no_LF   &>> ${WORKDIR}/LiF-tutorial.log
+
+# Random-Phase approximation with scissor operator
+echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
+srun yambo -F Inputs/03_RPA_LF_QP -J 03_RPA_LF_QP   &>> ${WORKDIR}/LiF-tutorial.log
+
+# ALDA
+echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
+srun yambo -F Inputs/04_alda_g_space -J 04_alda_g_space   &>> ${WORKDIR}/LiF-tutorial.log
+
 # Bethe-Salpeter equation for Excitons
 echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
+# first the statically screened electron-electron interaction
+srun yambo -F Inputs/05_W               &>> ${WORKDIR}/LiF-tutorial.log
+echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
+# then the BSE
 srun yambo -F Inputs/06_BSE -J 06_BSE   &>> ${WORKDIR}/LiF-tutorial.log
+
+# BSE based F_XC
+echo "-o0o-"                             >> ${WORKDIR}/LiF-tutorial.log
+srun yambo -F Inputs/07_LRC -J 07_LRC   &>> ${WORKDIR}/LiF-tutorial.log
+
+# plot the results
+gnuplot ../../../compare.gnuplot
+
 echo "COMPLETED"                         >> ${WORKDIR}/LiF-tutorial.log
 
