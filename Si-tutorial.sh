@@ -24,8 +24,8 @@ module load gnuplot
 # See QE Prerequisites
 export LC_ALL=C
 
-QEDIR=${PWD}/q-e-qe-7.2
-YAMBODIR=${PWD}/yambo-5.2.0
+QEDIR=/scratch/sbranchett/yambo-evaluation/q-e-qe-7.2
+YAMBODIR=/scratch/sbranchett/parallel-yambo/yambo-5.2.0
 export PATH=$PATH:$QEDIR/bin:$YAMBODIR/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 
@@ -213,4 +213,16 @@ sed -i "s|UseEbands|#UseEbands|" Inputs/03GoWo_PPA_corrections
 
 gnuplot "$WORKDIR"/G0W0_empty_bands_convergence.gnuplot
 mv *.png "$WORKDIR"/Silicon/plots/
+
+# Final run with converged parameters
+cd "$WORKDIR"/Silicon/NEW_YAMBO/8x8x8
+srun yambo -F Inputs/04GoWo_converged -J G0W0_Converged
+
+echo "Direct gap is:" > converged_results.dat
+grep "  5 " o-G0W0_Converged.qp | grep " 2.576" | awk '{print $3+$4 }' >> converged_results.dat
+
+VAL_HIGH=$(grep '            4  ' o-G0W0_Converged.qp | awk '{print $3+$4 }' | sort -n | tail -1)
+CON_LOW=$(grep '            5  ' o-G0W0_Converged.qp | awk '{print $3+$4 }' | sort -n | head -1)
+echo "Indirect gap is:" >> converged_results.dat
+echo "$CON_LOW - $VAL_HIGH" | bc >> converged_results.dat
 
