@@ -19,6 +19,7 @@ export CPATH=$FFTW_ROOT/include:$CPATH
 module load hdf5  # adds path to LD_LIBRARY_PATH
 module load netcdf-c  # adds path to LD_LIBRARY_PATH
 module load netcdf-fortran  # adds path to LD_LIBRARY_PATH
+module load gnuplot
 # See QE Prerequisites
 export LC_ALL=C
 
