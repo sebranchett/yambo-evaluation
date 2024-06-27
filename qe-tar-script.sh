@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=qe-untar
 #SBATCH --partition=compute
-#SBATCH --account=research-uco-ict
+#SBATCH --account=innovation
 #SBATCH --time=00:20:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -11,5 +11,5 @@
 # find your account with:
 # sacctmgr list -sp user $USER
 
-srun tar zxf q-e-qe-7.2.tar.gz
+srun tar zxf q-e-qe-7.3.1.tar.gz
 

@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=qe-test
 #SBATCH --partition=compute
-#SBATCH --account=research-uco-ict
+#SBATCH --account=innovation
 #SBATCH --time=00:59:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -21,10 +21,10 @@ export CPATH=$FFTW_ROOT/include:$CPATH
 # see Prerequisites
 export LC_ALL=C
 
-WORKDIR=./q-e-qe-7.2/test-suite
+WORKDIR=./q-e-qe-7.3.1/test-suite
 cd "$WORKDIR"
 
-# Do not user srun here. The tests will fail and tell you not to
+# Do not use srun here. The tests will fail and tell you not to
 make clean
 make run-tests \
     >  qe_test_output.log
