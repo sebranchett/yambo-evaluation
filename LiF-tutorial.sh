@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=LiFtutorial
+#SBATCH --job-name=LiF-tutorial
 #SBATCH --partition=compute
 #SBATCH --account=innovation
 #SBATCH --time=00:30:00
@@ -23,8 +23,8 @@ module load gnuplot
 # See QE Prerequisites
 export LC_ALL=C
 
-QEDIR=/scratch/sbranchett/yambo-evaluation/q-e-qe-7.2
-YAMBODIR=/scratch/sbranchett/parallel-yambo/yambo-5.2.0
+QEDIR=${PWD}/q-e-qe-7.3.1
+YAMBODIR=${PWD}/yambo-5.2.3
 export PATH=$PATH:$QEDIR/bin:$YAMBODIR/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 

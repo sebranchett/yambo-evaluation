@@ -59,6 +59,7 @@ As explained in the Yambo installation instructions, successful output includes:
 ```
 Cannot access CORE database (SAVE/*db1 and/or SAVE/*wf)
 ```
+You can further test the installation with `Si-tutorial.sh` which reproduces the Yambo [GW on bulk silicon tutorial](https://www.yambo-code.eu/wiki/index.php/Silicon) and `LiF-tutorial.sh` which reproduces the Yambo [BSE in lithium-floride tutorial](https://www.yambo-code.eu/wiki/index.php/LiF). Untar the `-reset.tar.gz' before starting.
 
 ## Windows laptop with Docker
 
