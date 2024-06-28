@@ -21,7 +21,7 @@ export CPATH=$FFTW_ROOT/include:$CPATH
 # second time do not: module load netcdf-c
 # second time do not: module load netcdf-fortran
 
-WORKDIR=./yambo-5.2.0
+WORKDIR=./yambo-5.2.3
 cd "$WORKDIR"
 
 srun ./configure \

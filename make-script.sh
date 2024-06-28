@@ -7,7 +7,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=1GB
+#SBATCH --mem-per-cpu=8GB
 
 # find your account with:
 # sacctmgr list -sp user $USER
@@ -21,9 +21,9 @@ module load hdf5
 module load netcdf-c
 module load netcdf-fortran
 
-WORKDIR=./yambo-5.2.0
+WORKDIR=./yambo-5.2.3
 cd "$WORKDIR"
 
-srun make clean > make_output.log
+# srun make clean > make_output.log
 srun make core > make_output.log
 

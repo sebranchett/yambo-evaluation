@@ -21,7 +21,7 @@ module load hdf5
 module load netcdf-c
 module load netcdf-fortran
 
-WORKDIR=./yambo-5.2.0
+WORKDIR=./yambo-5.2.3
 cd "$WORKDIR"
 
 srun ./configure \
