@@ -17,9 +17,9 @@ module load openmpi
 module load openblas
 module load fftw
 export CPATH=$FFTW_ROOT/include:$CPATH
-module load hdf5
-module load netcdf-c
-module load netcdf-fortran
+# second time do not: module load hdf5
+# second time do not: module load netcdf-c
+# second time do not: module load netcdf-fortran
 
 WORKDIR=./yambo-5.2.3
 cd "$WORKDIR"
