@@ -4,15 +4,14 @@
 #SBATCH --partition=compute
 #SBATCH --account=innovation
 #SBATCH --time=02:00:00
-#SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=8GB
+#SBATCH --mem-per-cpu=3900MB
 
 # find your account with:
 # sacctmgr list -sp user $USER
 
-module load 2023r1
+module load 2024r1
 module load openmpi
 module load openblas
 module load fftw

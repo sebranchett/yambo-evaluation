@@ -11,7 +11,7 @@
 # find your account with:
 # sacctmgr list -sp user $USER
 
-module load 2023r1
+module load 2024r1
 module load openmpi
 module load openblas
 module load fftw
@@ -28,7 +28,7 @@ YAMBODIR=${PWD}/yambo-5.2.3
 export PATH=$PATH:$QEDIR/bin:$YAMBODIR/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 
-# Reproducint this tutorial:
+# Reproducing this tutorial:
 # https://www.yambo-code.eu/wiki/index.php/LiF
 
 WORKDIR=${PWD}/LiF-tutorial

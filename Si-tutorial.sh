@@ -4,7 +4,6 @@
 #SBATCH --partition=compute
 #SBATCH --account=innovation
 #SBATCH --time=01:00:00
-#SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1GB
