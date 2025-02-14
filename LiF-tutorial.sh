@@ -4,9 +4,11 @@
 #SBATCH --partition=compute
 #SBATCH --account=innovation
 #SBATCH --time=00:30:00
-#SBATCH --ntasks=4
-#SBATCH --cpus-per-task=1
+#SBATCH --ntasks-per-node=2
+#SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=1GB
+
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 # find your account with:
 # sacctmgr list -sp user $USER

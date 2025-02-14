@@ -26,6 +26,7 @@ cd "$WORKDIR"
 srun ./configure \
     --enable-hdf5-par-io \
     --enable-slepc-linalg \
+    --enable-open-mp \
     --with-mpi-path=$OPENMPI_ROOT \
     --with-blas-libs="-L${OPENBLAS_ROOT}/lib -lopenblas" \
     --with-fft-path=$FFTW_ROOT \
