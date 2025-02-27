@@ -4,7 +4,7 @@
 #SBATCH --partition=compute
 #SBATCH --account=innovation
 #SBATCH --time=00:59:00
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1GB
 
@@ -20,7 +20,7 @@ export CPATH=$FFTW_ROOT/include:$CPATH
 # see Prerequisites
 export LC_ALL=C
 
-WORKDIR=./q-e-qe-7.3.1/test-suite
+WORKDIR=./q-e-qe-7.4.1/test-suite
 cd "$WORKDIR"
 
 # Do not use srun here. The tests will fail and tell you not to

@@ -20,7 +20,7 @@ export CPATH=$FFTW_ROOT/include:$CPATH
 # see Prerequisites
 export LC_ALL=C
 
-WORKDIR=./q-e-qe-7.3.1
+WORKDIR=./q-e-qe-7.4.1
 cd "$WORKDIR"
 
 srun ./configure \

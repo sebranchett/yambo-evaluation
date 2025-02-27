@@ -11,5 +11,5 @@
 # find your account with:
 # sacctmgr list -sp user $USER
 
-srun tar zxf q-e-qe-7.3.1.tar.gz
+srun tar zxf q-e-qe-7.4.1.tar.gz
 

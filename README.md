@@ -4,17 +4,17 @@
 DelftBlue instructions [here](https://doc.dhpc.tudelft.nl/delftblue/crash-course/).
 
 ### Quantum Espresso
-Quantum Espresso installation instructions [here](https://www.quantum-espresso.org/Doc/user_guide/user_guide.html). Version 7.3.1.
+Quantum Espresso installation instructions [here](https://www.quantum-espresso.org/Doc/user_guide/user_guide.html). Version 7.4.1.
 
-I downloaded the 7.3.1 zip from [here](https://gitlab.com/QEF/q-e/-/releases/), but it would be better to register and download.
+I downloaded the 7.4.1 zip from [here](https://gitlab.com/QEF/q-e/-/releases/), but it would be better to register and download.
 
-This script unzips `q-e-qe-7.3.1.tar.gz` as a batch job:
+This script unzips `q-e-qe-7.4.1.tar.gz` as a batch job:
 ```
 qe-tar-script.sh
 ```
-The unzipped git repository contains sub-modules that need to be initialised. This step could possibly be avoided by registering and downloading as intended.
+The unzipped git repository contains sub-modules that need to be initialised.
 ```
-cd ./q-e-qe-7.3.1/external
+cd ./q-e-qe-7.4.1/external
 ./initialize_external_repos.sh  # needs internet
 cd ../..
 ```
@@ -26,11 +26,15 @@ qe-test-script.sh  # to run the tests
 qe-example-script.sh  # to run the examples
 ```
 > [!NOTE]
-> If you want to run the examples in parallel, you need to edit the file: `q-e-qe-7.3.1/environment_variables` and change the lines defining `PARA_PREFIX` and `PARA_POSTFIX`:
+> If you want to run the examples in parallel, you need to edit the file: `q-e-qe-7.4.1/environment_variables` and change the lines defining `PARA_PREFIX` and `PARA_POSTFIX`:
 >
 > `PARA_PREFIX="srun"`
 >
 > `PARA_POSTFIX=""`
+
+> [!NOTE]
+> In file `q-e-qe-7.4.1/test-suite/ENVIRONMENT` there is a space at the end of the line that defines ESPRESSO_BUILD.
+> Remove the space to get the test-suite to run.
 
 ### Yambo
 Yambo installation instructions [here](https://www.yambo-code.eu/wiki/index.php/Installation). You can download the software [here](https://github.com/yambo-code/yambo/wiki/Releases-%28tar.gz-format%29). Version tested: 5.2.3.
