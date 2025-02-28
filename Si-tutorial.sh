@@ -25,8 +25,8 @@ module load gnuplot
 # See QE Prerequisites
 export LC_ALL=C
 
-QEDIR=${PWD}/q-e-qe-7.3.1
-YAMBODIR=${PWD}/yambo-5.2.3
+QEDIR=${PWD}/q-e-qe-7.4.1
+YAMBODIR=${PWD}/yambo-5.3.0
 export PATH=$PATH:$QEDIR/bin:$YAMBODIR/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
 

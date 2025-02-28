@@ -20,7 +20,7 @@ module load hdf5
 module load netcdf-c
 module load netcdf-fortran
 
-WORKDIR=./yambo-5.2.3
+WORKDIR=./yambo-5.3.0
 cd "$WORKDIR"
 
 # srun make clean > make_output.log

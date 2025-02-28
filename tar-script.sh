@@ -11,5 +11,5 @@
 # find your account with:
 # sacctmgr list -sp user $USER
 
-srun tar zxf yambo-5.2.3.tar.gz
+srun tar zxf yambo-5.3.0.tar.gz
 

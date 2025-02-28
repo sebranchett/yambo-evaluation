@@ -20,7 +20,7 @@ module load hdf5
 module load netcdf-c
 module load netcdf-fortran
 
-YAMBODIR=${PWD}/yambo-5.2.3
+YAMBODIR=${PWD}/yambo-5.3.0
 # add yambo path:
 export PATH=$PATH:$YAMBODIR/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$YAMBODIR/lib
